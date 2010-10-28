@@ -10,6 +10,7 @@ class ParticipanteService {
 		def CNPJ_CPF = participante.cpf
 
 		if (CNPJ_CPF.length() == 11) { //CPF
+			/*
 			int acumulador1 = 0;
 			int acumulador2 = 0;
 			int resto = 0;
@@ -70,6 +71,10 @@ class ParticipanteService {
 			digito = 11 - (acumulador % 11);
 			CNPJ.append((digito == 10 || digito == 11) ? "0" : digito);
 			return CNPJ.toString().equals(CNPJ_CPF);
+
+			*/
+			return true
+			
 		}
 
 
