@@ -23,14 +23,14 @@
                         <tr>
                         
                             <g:sortableColumn property="id" title="${message(code: 'inscricao.id.label', default: 'Id')}" />
-                        
-                            <g:sortableColumn property="dataInscricao" title="${message(code: 'inscricao.dataInscricao.label', default: 'Data Inscricao')}" />
-                        
-                            <th><g:message code="inscricao.evento.label" default="Evento" /></th>
-                        
-                            <g:sortableColumn property="fezCheckin" title="${message(code: 'inscricao.fezCheckin.label', default: 'Fez Checkin')}" />
-                        
-                            <th><g:message code="inscricao.participante.label" default="Participante" /></th>
+
+							<g:sortableColumn property="participante.nome" title="${message(code: 'inscricao.participante.nome.label', default: 'Participante')}" />
+
+                            <g:sortableColumn property="participante.email" title="${message(code: 'inscricao.participante.email.label', default: 'Email')}" />
+
+                            <g:sortableColumn property="participante.instituicao" title="${message(code: 'inscricao.participante.instituicao.label', default: 'Instituicao')}" />
+
+                            <g:sortableColumn property="participante.cidade" title="${message(code: 'inscricao.participante.cidade.label', default: 'Cidade')}" />
                         
                         </tr>
                     </thead>
@@ -39,15 +39,15 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td><g:link action="show" id="${inscricaoInstance.id}">${fieldValue(bean: inscricaoInstance, field: "id")}</g:link></td>
-                        
-                            <td><g:formatDate date="${inscricaoInstance.dataInscricao}" format="dd/MM/yyyy"/></td>
-                        
-                            <td>${fieldValue(bean: inscricaoInstance, field: "evento")}</td>
-                        
-                            <td><g:formatBoolean boolean="${inscricaoInstance.fezCheckin}" /></td>
-                        
+
                             <td>${fieldValue(bean: inscricaoInstance, field: "participante")}</td>
-                        
+
+                            <td>${fieldValue(bean: inscricaoInstance?.participante, field: "email")}</td>
+
+                            <td>${fieldValue(bean: inscricaoInstance?.participante, field: "instituicao")}</td>
+
+                            <td>${fieldValue(bean: inscricaoInstance?.participante, field: "cidade")}</td>
+
                         </tr>
                     </g:each>
                     </tbody>
