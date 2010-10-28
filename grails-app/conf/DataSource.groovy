@@ -1,9 +1,8 @@
 dataSource {
     pooled = true
-    driverClassName = "com.mysql.jdbc.Driver"
-//    driverClassName = "org.hsqldb.jdbcDriver"
-    username = "user"
-    password = "senha"
+	driverClassName = "org.hsqldb.jdbcDriver"
+    username = "sa"
+    password = ""
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -16,8 +15,7 @@ environments {
         dataSource {
             //dbCreate = "create-drop" // one of 'create', 'create-drop','update'
             dbCreate = "update"
-            url = "jdbc:hsqldb:mem:devDB"
-	    //url = "jdbc:hsqldb:file:/media/dados/workspaces/grails/jmeetings_db/jmeetings_db;shutdown=true"
+			url = "jdbc:hsqldb:file:jmeetings_db/data;shutdown=true"
         }
     }
     test {
@@ -28,6 +26,9 @@ environments {
     }
     production {
         dataSource {
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "usuario producao"
+			password = "senha producao"
             dbCreate = "update"
             url = "jdbc:mysql://localhost/jmeetings_db"
         }

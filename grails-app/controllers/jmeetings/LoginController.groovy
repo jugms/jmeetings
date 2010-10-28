@@ -9,7 +9,7 @@ class LoginController {
     }
 
     def logar = {
-        if(params.login == "admin" && params.senha == "senha do admin"){
+        if(params.login == "admin" && params.senha == "admin"){
             flash.message = "Bem vindo admin"
             session.user = "admin"
             redirect(uri: "/")

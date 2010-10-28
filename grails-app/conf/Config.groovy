@@ -98,4 +98,6 @@ grails {
               "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
               "mail.smtp.socketFactory.fallback":"false"]
    }
+
+   org.codehaus.groovy.grails.validation.ConstrainedProperty.registerNewConstraint(jmeetings.CPFConstraint.CPF_CONSTRAINT, jmeetings.CPFConstraint.class)
 }

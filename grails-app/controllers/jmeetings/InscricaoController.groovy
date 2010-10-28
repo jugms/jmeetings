@@ -25,15 +25,18 @@ class InscricaoController {
     }
 
     def save = {
+		
         def inscricaoInstance = new Inscricao(params)
+		//aqui eu limpo o cpf para deixar só os números
         inscricaoInstance.participante.cpf = inscricaoInstance.participante.cpf?.trim().replaceAll('\\.', '').replaceAll('\\-', '')
-        def cpfValido = participanteService.validarCPF(inscricaoInstance.participante)
-
-        if (cpfValido &
-            inscricaoInstance.validate() & inscricaoInstance.participante.validate() & inscricaoInstance.participante.senha == params.confirmacaoSenha) {
+		
+        if ( inscricaoInstance.validate() & inscricaoInstance.participante.validate() &
+			inscricaoInstance.participante.senha == params.confirmacaoSenha) {
             inscricaoInstance.participante.senha = inscricaoInstance.participante.senha.encodeAsSHA1()
             inscricaoInstance.save(flush: true)
+			
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'inscricao.label', default: 'Inscricao'), inscricaoInstance.id])}"
+							
             def texto = "Olá ${inscricaoInstance.participante.nome}, sua inscrição no ${inscricaoInstance.evento.nome} foi realizada com sucesso! Acesse o link abaixo para confirmar sua inscrição e obter sua camiseta.\nhttp://www.javaneiros.com.br/2010/noticia/inscricoes-pagamento"
             try{
                 jmeetingsMailService.sendMail("Inscrição no ${inscricaoInstance.evento.nome}", texto, inscricaoInstance.participante.email)
@@ -44,10 +47,6 @@ class InscricaoController {
         else {
             if(inscricaoInstance.participante.senha != params.confirmacaoSenha){
                 inscricaoInstance.participante?.errors?.rejectValue("senha","participante.senhas.diferentes")
-            }
-            if(!cpfValido)
-            {
-                inscricaoInstance.participante?.errors?.rejectValue("cpf", "participante.cpf.invalido")
             }
             render(view: "create", model: [inscricaoInstance: inscricaoInstance])
         }
