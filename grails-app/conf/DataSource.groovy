@@ -1,9 +1,5 @@
 dataSource {
     pooled = true
-    driverClassName = "com.mysql.jdbc.Driver"
-//    driverClassName = "org.hsqldb.jdbcDriver"
-    username = "user"
-    password = "senha"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -14,22 +10,40 @@ hibernate {
 environments {
     development {
         dataSource {
-            //dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            driverClassName = "com.mysql.jdbc.Driver"
             dbCreate = "update"
-            url = "jdbc:hsqldb:mem:devDB"
-	    //url = "jdbc:hsqldb:file:/media/dados/workspaces/grails/jmeetings_db/jmeetings_db;shutdown=true"
+            url = "jdbc:mysql://localhost/jmeetings_db"
+            username = "root"
+            password = "root"
+//            logSql = true
         }
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:hsqldb:mem:testDb"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            dbCreate = "create-drop"
+            url = "jdbc:hsqldb:file:jmeeting-db;shutdown=true"
+            username = "sa"
+            password = ""
         }
     }
     production {
         dataSource {
+            driverClassName = "com.mysql.jdbc.Driver"
             dbCreate = "update"
             url = "jdbc:mysql://localhost/jmeetings_db"
+            username = "root"
+            password = "raposa"
+            properties {
+                maxActive = 50
+                maxIdle = 25
+                minIdle = 5
+                initialSize = 5
+                minEvictableIdleTimeMillis = 60000
+                timeBetweenEvictionRunsMillis = 60000
+                maxWait = 10000
+                //validationQuery = "/* ping */"
+            }
         }
     }
 }

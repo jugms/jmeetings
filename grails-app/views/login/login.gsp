@@ -17,10 +17,10 @@
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="login">login</label>
+                                    <label for="email">email</label>
                                 </td>
                                 <td valign="top">
-                                    <g:textField name="login"/>
+                                    <g:textField name="email"/>
                                 </td>
                             </tr>
 

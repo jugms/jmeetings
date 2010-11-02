@@ -4,3 +4,5 @@ stacktrace.log
 .classpath
 .project
 .settings/
+jmeeting-db.properties
+jmeeting-db.script

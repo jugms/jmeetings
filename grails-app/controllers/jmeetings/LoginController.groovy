@@ -9,13 +9,21 @@ class LoginController {
     }
 
     def logar = {
-        if(params.login == "admin" && params.senha == "senha do admin"){
-            flash.message = "Bem vindo admin"
-            session.user = "admin"
-            redirect(uri: "/")
+        if(params.email && params.senha){
+            def user = Participante.autenticar(params.email,params.senha);
+            if (user == null)
+            {
+                flash.message = "Falha na autenticação: email e/ou senha inválido"
+                render(view: "login")
+            }
+            else{
+                flash.message = "Bem vindo" + user.nome
+                session.user = user.nome
+                redirect(uri: "/")
+            }
         }
         else{
-            flash.message = "Falha na autenticação"
+            flash.message = "Informe Email e Senha"
             render(view: "login")
         }
     }
