@@ -19,7 +19,7 @@ class Participante {
         email(unique:true,email:true)
         senha(blank:false,password:true)
         senha(maxSize:45)
-        cpf(blank:false,unique:true,maxSize:20)
+        cpf(blank:false,cpf:true,unique:true)
         instituicao(length:2..100,blank:true,maxSize:50)
         cidade(maxSize:50)
     }

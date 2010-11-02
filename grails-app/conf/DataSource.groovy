@@ -10,12 +10,12 @@ hibernate {
 environments {
     development {
         dataSource {
-            driverClassName = "com.mysql.jdbc.Driver"
+            driverClassName = "org.hsqldb.jdbcDriver"
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/jmeetings_db"
-            username = "root"
-            password = "root"
-//            logSql = true
+            url = "jdbc:hsqldb:file:jmeeting-db;shutdown=true"
+            username = "sa"
+            password
+            //            logSql = true
         }
     }
     test {
