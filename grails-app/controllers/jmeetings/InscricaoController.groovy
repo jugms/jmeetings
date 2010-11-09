@@ -7,7 +7,23 @@ class InscricaoController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def jmeetingsMailService
-    def participanteService
+
+    def buscar = {
+
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		params.sort = 'fezCheckin'
+		params.order = 'desc'		
+		def lista = params.filtro ? Inscricao.buscarPorNomeOuEmail(params.filtro) : Inscricao.list(params)
+			
+		render(view: 'list', model: [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size()])
+    }
+
+    def checkin = {
+		def inscricao = Inscricao.get(params.id)
+		inscricao.fezCheckin = true
+		inscricao.save()
+		redirect(action:'list')
+    }
 
     def index = {
         redirect(action: "list", params: params)

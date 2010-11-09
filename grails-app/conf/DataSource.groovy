@@ -1,4 +1,7 @@
 dataSource {
+	driverClassName = "org.hsqldb.jdbcDriver"
+	username = "sa"
+	password = ""
     pooled = true
 }
 hibernate {
@@ -10,21 +13,14 @@ hibernate {
 environments {
     development {
         dataSource {
-            driverClassName = "org.hsqldb.jdbcDriver"
             dbCreate = "update"
-            url = "jdbc:hsqldb:file:jmeeting-db;shutdown=true"
-            username = "sa"
-            password
-            //            logSql = true
+            url = "jdbc:hsqldb:file:jmeeting_db_dev/database;shutdown=true"
         }
     }
     test {
         dataSource {
-            driverClassName = "org.hsqldb.jdbcDriver"
             dbCreate = "create-drop"
-            url = "jdbc:hsqldb:file:jmeeting-db;shutdown=true"
-            username = "sa"
-            password = ""
+            url = "jdbc:hsqldb:file:jmeeting_db_test/database;shutdown=true"
         }
     }
     production {
@@ -33,7 +29,7 @@ environments {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/jmeetings_db"
             username = "root"
-            password = "raposa"
+            password = "root"
             properties {
                 maxActive = 50
                 maxIdle = 25

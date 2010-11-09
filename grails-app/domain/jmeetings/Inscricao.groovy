@@ -20,6 +20,10 @@ class Inscricao {
     String expectativas
     String comoSoube
 
+	static List buscarPorNomeOuEmail(filtro){
+		Inscricao.findAll("from Inscricao i where lower(i.participante.nome) like :nome or lower(i.participante.email) like :email", [nome: "%${filtro.toLowerCase()}%", email: "%${filtro.toLowerCase()}%"])
+	}
+
     String toString(){
       "${evento.nome} - ${participante.nome}"
     }

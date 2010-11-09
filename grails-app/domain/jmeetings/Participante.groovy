@@ -22,6 +22,7 @@ class Participante {
         cpf(blank:false,cpf:true,unique:true)
         instituicao(length:2..100,blank:true,maxSize:50)
         cidade(maxSize:50)
+		administrador(nullable:true)
     }
 
     static Participante autenticar(String email, String senha)

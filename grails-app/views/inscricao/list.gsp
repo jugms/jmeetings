@@ -14,9 +14,29 @@
   </div>
   <div class="body">
     <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-    <g:if test="${flash.message}">
-      <div class="message">${flash.message}</div>
-    </g:if>
+	<div id="message">
+		<g:if test="${flash.message}">
+			<div class="message">${flash.message}</div>
+		</g:if>
+	</div>
+	<g:form action="buscar" >
+		<div class="dialog">
+			<table>
+				<tbody>
+					<tr class="prop">
+						<td valign="top" class="name">
+							<label for="filtro">Nome ou e-mail</label>
+						</td>
+						<td valign="top" class="value filtro">
+							<g:textField name="filtro"/> &nbsp;&nbsp;<g:submitButton name="buscar" value="Buscar" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</g:form>
+	
+
     <div class="list">
       <table>
         <thead>
@@ -31,6 +51,8 @@
         <g:sortableColumn property="participante.instituicao" title="${message(code: 'inscricao.participante.instituicao.label', default: 'Instituicao')}" />
 
         <g:sortableColumn property="participante.cidade" title="${message(code: 'inscricao.participante.cidade.label', default: 'Cidade')}" />
+
+		<g:sortableColumn property="fezCheckin" title="${message(code: 'fezCheckin.label', default: 'Fez Checkin?')}" />
 
         </tr>
         </thead>
@@ -48,6 +70,13 @@
 
           <td>${fieldValue(bean: inscricaoInstance?.participante, field: "cidade")}</td>
 
+          <td>
+				<g:if test="${inscricaoInstance.fezCheckin}">
+					Sim
+				</g:if>
+				<g:else>
+					Não - <g:link action="checkin" id="${inscricaoInstance.id}">Fazer Checkin!</g:link>
+				</g:else>
           </tr>
         </g:each>
         </tbody>
