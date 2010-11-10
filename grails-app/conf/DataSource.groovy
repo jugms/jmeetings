@@ -30,6 +30,7 @@ environments {
             url = "jdbc:mysql://localhost/jmeetings_db"
             username = "root"
             password = "root"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
             properties {
                 maxActive = 50
                 maxIdle = 25
