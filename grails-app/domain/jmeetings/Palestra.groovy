@@ -2,6 +2,9 @@ package jmeetings
 
 class Palestra {
 
+	static hasMany = [inscricoes:Inscricao]
+	static belongsTo = Inscricao
+	
     String dataSubmissao
     //dados do palestrante
     String nome
@@ -15,7 +18,7 @@ class Palestra {
     String nivel
     String recursos
 
-    Boolean aprovada
+    Boolean aprovada = false
 
     static constraints = {
     }

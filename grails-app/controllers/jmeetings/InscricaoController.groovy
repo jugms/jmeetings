@@ -18,6 +18,33 @@ class InscricaoController {
 		render(view: 'list', model: [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size()])
     }
 
+	def confirmar = {
+		if(request.method == 'GET') {
+			render(view:'selecaoPalestras', model: [inscricaoInstance: Inscricao.buscarPorEventoECpf(params.evento, params.cpf), palestras: Palestra.list()])
+		}
+		else{
+			def inscricao = Inscricao.get(params.id)
+			try{
+				
+				def ids = []
+				params.palestras.each{
+					ids << Integer.valueOf(it)
+				}
+				if(inscricao.confirmarPresenca(Palestra.getAll(ids)))
+				{
+					flash.message = "sucesso"
+					render(view: 'selecaoPalestras')
+				}
+			}
+			catch(IllegalArgumentException e){
+				flash.message = e.message
+				render(view:'selecaoPalestras', model: [palestras: Palestra.list(), inscricaoInstance: inscricao])
+			}
+
+			
+		}
+	}
+
     def checkin = {
 		def inscricao = Inscricao.get(params.id)
 		inscricao.fezCheckin = true

@@ -7,6 +7,12 @@ class UrlMappings {
 			}
 		}
 
+		"/$controller/$action/$evento/$cpf"{
+			constraints {
+				// apply constraints here
+			}
+		}
+
 		"/"(view:"/index")
 		"500"(view:'/error')
 	}
