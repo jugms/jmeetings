@@ -20,21 +20,30 @@ class InscricaoController {
 
 	def confirmar = {
 		if(request.method == 'GET') {
-			render(view:'selecaoPalestras', model: [inscricaoInstance: Inscricao.buscarPorEventoECpf(params.evento, params.cpf), palestras: Palestra.list()])
+			def modelo = [:]
+			def inscricao = Inscricao.buscarPorEventoECpf(params.evento, params.cpf)
+			if(inscricao)
+			{
+				modelo.inscricaoInstance = inscricao
+				modelo.palestras = Palestra.list()
+			}
+			else
+			{
+				flash.errors = "Inscrição não encontrada!"
+			}
+
+			render(view:'selecaoPalestras', model: modelo)
 		}
 		else{
 			def inscricao = Inscricao.get(params.id)
 			try{
-				
-				def ids = []
-				params.palestras.each{
-					ids << Integer.valueOf(it)
-				}
-				if(inscricao.confirmarPresenca(Palestra.getAll(ids)))
+				if(inscricao.confirmarPresenca(Palestra.getAll( params.palestras.collect{ it.toLong() } )))
 				{
-					flash.message = "sucesso"
-					render(view: 'selecaoPalestras')
+					flash.message = "Sua confirmação foi recebida com sucesso."
+					flash.sucesso = true
+					
 				}
+				render(view: 'selecaoPalestras', model: [inscricaoInstance: inscricao])
 			}
 			catch(IllegalArgumentException e){
 				flash.message = e.message
@@ -50,13 +59,6 @@ class InscricaoController {
 		inscricao.fezCheckin = true
 		inscricao.save()
 		redirect(action:'list')
-    }
-
-		def receberKit = {
-			def inscricao = Inscricao.get(params.id)
-			inscricao.recebeuKit = true
-			inscricao.save()
-			redirect(action:'list')
     }
 
     def index = {

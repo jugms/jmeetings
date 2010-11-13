@@ -57,7 +57,16 @@
                                     <g:checkBox name="fezCheckin" value="${inscricaoInstance?.fezCheckin}" />
                                 </td>
                             </tr>
-                        
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="recebeuKit"><g:message code="inscricao.recebeuKit.label" default="Recebeu Kit" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: inscricaoInstance, field: 'recebeuKit', 'errors')}">
+                                    <g:checkBox name="recebeuKit" value="${inscricaoInstance?.recebeuKit}" />
+                                </td>
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                   <label for="participante"><g:message code="inscricao.participante.label" default="Participante" /></label>
