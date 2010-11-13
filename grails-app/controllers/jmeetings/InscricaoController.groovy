@@ -25,6 +25,13 @@ class InscricaoController {
 		redirect(action:'list')
     }
 
+		def receberKit = {
+			def inscricao = Inscricao.get(params.id)
+			inscricao.recebeuKit = true
+			inscricao.save()
+			redirect(action:'list')
+    }
+
     def index = {
         redirect(action: "list", params: params)
     }

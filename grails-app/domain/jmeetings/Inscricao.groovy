@@ -11,6 +11,7 @@ class Inscricao {
 
     Date dataInscricao = new Date()
     Boolean fezCheckin = false
+    Boolean recebeuKit = false
     String jse
     String jme
     String jee

@@ -52,8 +52,9 @@
 
         <g:sortableColumn property="participante.cidade" title="${message(code: 'inscricao.participante.cidade.label', default: 'Cidade')}" />
 
-		<g:sortableColumn property="fezCheckin" title="${message(code: 'fezCheckin.label', default: 'Fez Checkin?')}" />
-
+				<g:sortableColumn property="fezCheckin" title="${message(code: 'fezCheckin.label', default: 'Fez Checkin?')}" />
+        
+				<g:sortableColumn property="recebeuKit" title="${message(code: 'recebeuKit.label', default: 'Recebeu Kit?')}" />  
         </tr>
         </thead>
         <tbody>
@@ -70,13 +71,18 @@
 
           <td>${fieldValue(bean: inscricaoInstance?.participante, field: "cidade")}</td>
 
-          <td>
+          <td> 	
 				<g:if test="${inscricaoInstance.fezCheckin}">
 					Sim
 				</g:if>
 				<g:else>
 					Não - <g:link action="checkin" id="${inscricaoInstance.id}">Fazer Checkin!</g:link>
 				</g:else>
+				  </td>
+				<td> 	
+					<g:if test="${inscricaoInstance.recebeuKit}">Sim</g:if>
+					<g:else><g:link action="receberKit" id="${inscricaoInstance.id}">Receber kit</g:link></g:else>
+				  </td>
           </tr>
         </g:each>
         </tbody>
