@@ -9,56 +9,49 @@ class InscricaoController {
     def jmeetingsMailService
 
     def buscar = {
-
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = 'fezCheckin'
-		params.order = 'desc'		
-		def lista = params.filtro ? Inscricao.buscarPorNomeOuEmail(params.filtro) : Inscricao.list(params)
-			
-		render(view: 'list', model: [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size()])
+        params.max = Math.min(params.max ? params.int('max') : 25, 100)
+        params.sort = 'fezCheckin'
+        params.order = 'desc'
+        def lista = params.filtro ? Inscricao.buscarPorNomeOuEmail(params.filtro) : Inscricao.list(params)
+        render(view: 'list', model: [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size()])
     }
 
-	def confirmar = {
-		if(request.method == 'GET') {
-			def modelo = [:]
-			def inscricao = Inscricao.buscarPorEventoECpf(params.evento, params.cpf)
-			if(inscricao)
-			{
-				modelo.inscricaoInstance = inscricao
-				modelo.palestras = Palestra.list()
-			}
-			else
-			{
-				flash.errors = "Inscrição não encontrada!"
-			}
-
-			render(view:'selecaoPalestras', model: modelo)
-		}
-		else{
-			def inscricao = Inscricao.get(params.id)
-			try{
-				if(inscricao.confirmarPresenca(Palestra.getAll( params.palestras.collect{ it.toLong() } )))
-				{
-					flash.message = "Sua confirmação foi recebida com sucesso."
-					flash.sucesso = true
-					
-				}
-				render(view: 'selecaoPalestras', model: [inscricaoInstance: inscricao])
-			}
-			catch(IllegalArgumentException e){
-				flash.message = e.message
-				render(view:'selecaoPalestras', model: [palestras: Palestra.list(), inscricaoInstance: inscricao])
-			}
-
-			
-		}
-	}
+    def confirmar = {
+        if(request.method == 'GET') {
+            def modelo = [:]
+            def inscricao = Inscricao.buscarPorEventoECpf(params.evento, params.cpf)
+            if(inscricao){
+                modelo.inscricaoInstance = inscricao
+                modelo.palestras = Palestra.list()
+            }
+            else{
+                flash.errors = "Inscrição não encontrada!"
+            }
+            render(view:'selecaoPalestras', model: modelo)
+        }
+        else{
+            def inscricao = Inscricao.get(params.id)
+            try{
+                inscricao.confirmarPresenca(params.confirma=="true",params.palestras)
+                flash.message = "Sua confirmação foi recebida com sucesso."
+                flash.sucesso = true
+                render(view: 'selecaoPalestras', model: [inscricaoInstance: inscricao])
+            }
+            catch(IllegalArgumentException e){
+                flash.message = e.message
+                render(view:'selecaoPalestras', model: [palestras: Palestra.list(), inscricaoInstance: inscricao])
+            }
+        }
+    }
 
     def checkin = {
-		def inscricao = Inscricao.get(params.id)
-		inscricao.fezCheckin = true
-		inscricao.save()
-		redirect(action:'list')
+        Inscricao.get(params.id).checkin()
+        redirect(action:'list')
+    }
+
+    def receberKit = {
+        Inscricao.get(params.id).receberKit()
+        redirect(action:'list')
     }
 
     def index = {
@@ -66,7 +59,7 @@ class InscricaoController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        params.max = Math.min(params.max ? params.int('max') : 25, 100)
         if (!params.offset) params.offset = 0
         if (!params.sort) params.sort = "id"
         if (!params.order) params.order = "asc"
@@ -93,7 +86,6 @@ class InscricaoController {
     }
 
     def save = {
-		
         def inscricaoInstance = new Inscricao(params)
         //aqui eu limpo o cpf para deixar só os números
         inscricaoInstance.participante.cpf = inscricaoInstance.participante.cpf?.trim().replaceAll('\\.', '').replaceAll('\\-', '')

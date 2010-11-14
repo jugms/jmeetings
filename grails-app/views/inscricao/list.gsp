@@ -72,12 +72,8 @@
           <td>${fieldValue(bean: inscricaoInstance?.participante, field: "cidade")}</td>
 
           <td> 	
-				<g:if test="${inscricaoInstance.fezCheckin}">
-					Sim
-				</g:if>
-				<g:else>
-					Não - <g:link action="checkin" id="${inscricaoInstance.id}">Fazer Checkin!</g:link>
-				</g:else>
+						<g:if test="${inscricaoInstance.fezCheckin}">Sim</g:if>
+						<g:else><g:link action="checkin" id="${inscricaoInstance.id}">Checkin</g:link></g:else>
 				  </td>
 				<td> 	
 					<g:if test="${inscricaoInstance.recebeuKit}">Sim</g:if>
