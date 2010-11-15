@@ -29,13 +29,13 @@ class Inscricao {
         if(this.confirmado){
             if (palestras == null)
             {
-                throw new IllegalArgumentException('---Você deve selecionar 5 palestras!')
+                throw new IllegalArgumentException('Você deve selecionar 5 palestras!')
             }
             else
             {
                 palestras = Palestra.getAll( palestras.collect{ it.toLong() } )
                 if(palestras.size != 5){
-                    throw new IllegalArgumentException('Entrou. Você deve selecionar 5 palestras!')
+                    throw new IllegalArgumentException('Você deve selecionar 5 palestras!')
                 }
                 this.palestras = palestras
             }

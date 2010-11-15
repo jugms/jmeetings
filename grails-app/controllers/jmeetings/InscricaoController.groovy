@@ -22,7 +22,7 @@ class InscricaoController {
             def inscricao = Inscricao.buscarPorEventoECpf(params.evento, params.cpf)
             if(inscricao){
                 modelo.inscricaoInstance = inscricao
-                modelo.palestras = Palestra.list()
+                modelo.palestras = Palestra.buscarAprovadas()
             }
             else{
                 flash.errors = "Inscrição não encontrada!"

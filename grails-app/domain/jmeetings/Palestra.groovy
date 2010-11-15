@@ -22,4 +22,8 @@ class Palestra {
 
     static constraints = {
     }
+
+    static List buscarAprovadas(){
+        Palestra.findAll("from Palestra p where p.aprovada = :aprovada", ["aprovada":true])
+    }
 }
