@@ -18,7 +18,7 @@ class Palestra {
     String nivel
     String recursos
 
-    Boolean aprovada = false
+    Boolean aprovada = true
 
     static constraints = {
     }

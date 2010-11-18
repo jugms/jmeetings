@@ -31,8 +31,8 @@
                       Olá <strong>${inscricaoInstance?.participante?.nome}</strong>,
                       estamos nos esforçando para fazer desse um dos melhores eventos do Brasil.
                       <p>
-                        Já ultrapassamos o <strong>número máximo de inscritos</strong>, e queríamos <strong>confirmar a sua participação</strong> no evento
-                        <g:if test="${inscricaoInstance?.recebeuKit}">(Embora você já tenha recebido a camiseta)</g:if>.
+                        Já ultrapassamos o <strong>número máximo de inscritos</strong>, e queríamos <strong>confirmar a sua participação</strong> no evento.
+                        <g:if test="${inscricaoInstance?.recebeuKit}">(Embora você já tenha recebido a camiseta)</g:if>
                       </p>
                       <br/><br/>
                       <h3>Você vai mesmo no Javaneiros?</h3><br/>
@@ -44,6 +44,8 @@
                         Escolha apenas <strong>5 palestras</strong> que você tenha interesse de assistir.
                         <br/>
                         Isso é importante pois nos ajuda a montar da melhor forma possível a grade do evento.
+                      <br/>
+                      <a href="http://www.javaneiros.com.br/2010/programacao/">A grade provisória do evento você pode ver aqui.</a>
                       <br/><br/>
                         <ul>
                             <g:each var="palestra" in="${palestras}">

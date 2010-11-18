@@ -18,7 +18,7 @@ class Inscricao {
     String jee
     String tempoExperiencia
     Boolean sorteado = false
-    Boolean confirmado = false
+    Boolean confirmado
     String expectativas
     String comoSoube
 
@@ -68,6 +68,7 @@ class Inscricao {
     }
 
     static constraints = {
+        confirmado(nullable:true)
         comoSoube(nullable:true, maxSize:1000)
         expectativas(nullable:true, maxSize:1000)
 

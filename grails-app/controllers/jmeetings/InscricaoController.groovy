@@ -97,7 +97,7 @@ class InscricaoController {
 			
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'inscricao.label', default: 'Inscricao'), inscricaoInstance.id])}"
 							
-            def texto = "Olá ${inscricaoInstance.participante.nome}, sua inscrição no ${inscricaoInstance.evento.nome} foi realizada com sucesso! Acesse o link abaixo para confirmar sua inscrição e obter sua camiseta.\nhttp://www.javaneiros.com.br/2010/noticia/inscricoes-pagamento"
+            def texto = "Olá ${inscricaoInstance.participante.nome}, sua inscrição no ${inscricaoInstance.evento.nome} foi realizada com sucesso!"
             try{
                 jmeetingsMailService.sendMail("Inscrição no ${inscricaoInstance.evento.nome}", texto, inscricaoInstance.participante.email)
             }

@@ -54,7 +54,8 @@
 
 				<g:sortableColumn property="fezCheckin" title="${message(code: 'fezCheckin.label', default: 'Fez Checkin?')}" />
         
-				<g:sortableColumn property="recebeuKit" title="${message(code: 'recebeuKit.label', default: 'Recebeu Kit?')}" />  
+				<g:sortableColumn property="recebeuKit" title="${message(code: 'recebeuKit.label', default: 'Recebeu Kit?')}" />
+                                <g:sortableColumn property="confirmado" title="${message(code: 'confirmado.label', default: 'Confirmado?')}" />
         </tr>
         </thead>
         <tbody>
@@ -78,6 +79,12 @@
 				<td> 	
 					<g:if test="${inscricaoInstance.recebeuKit}">Sim</g:if>
 					<g:else><g:link action="receberKit" id="${inscricaoInstance.id}">Receber kit</g:link></g:else>
+				  </td>
+                                 <td>
+					<g:if test="${inscricaoInstance.confirmado}">Sim</g:if>
+                                        <g:if test="${inscricaoInstance.confirmado == null}">Não Respondeu</g:if>
+                                        <g:if test="${inscricaoInstance.confirmado == false}">Não</g:if>
+                                        
 				  </td>
           </tr>
         </g:each>

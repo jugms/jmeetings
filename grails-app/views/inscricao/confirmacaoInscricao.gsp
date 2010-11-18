@@ -19,9 +19,7 @@
         <br/>
         <br/>
 				Olá <strong>${inscricaoInstance.participante.nome}</strong>, sua inscrição no ${inscricaoInstance.evento.nome} foi realizada com sucesso!<br/>
-				Acesse o link abaixo para confirmar sua inscrição e obter sua camiseta.<br/>
         <br/>
-        <a href="http://www.javaneiros.com.br/2010/noticia/inscricoes-pagamento">http://www.javaneiros.com.br/2010/noticia/inscricoes-pagamento</a>
       </h1>
     </div>
 
