@@ -27,12 +27,12 @@ class NotificacaoController {
 
         inscritos.each{
             def texto = template.make(['inscricao':it])
-            if (!it.confirmado)
-            {
-                jmeetingsMailService.sendMail(params.assunto, texto.toString(), it.participante.email)
-                println("Enviado...: "+contador)
-            }
-            contador++
+//            if (it.confirmado == null && contador > 314)
+//            {
+                  jmeetingsMailService.sendMail(params.assunto, texto.toString(), it.participante.email)
+                  println("Enviado...: "+contador)
+//            }
+            contador++;
         }
         render "${inscritos.size} notificações efetuadas com sucesso"
     }

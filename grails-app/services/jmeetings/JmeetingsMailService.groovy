@@ -70,9 +70,9 @@ class JmeetingsMailService {
         try {
             transport.sendMessage(msg, msg.getAllRecipients())
         }
-        catch(java.lang.IllegalStateException e)
+        catch(Exception e)
         {
-            if (tentativa < 3)
+            if (tentativa < 10)
             {
                 tentativa++;
                 println("Forçar Fechamento..:"+tentativa)

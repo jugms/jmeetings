@@ -14,7 +14,18 @@
                   <div class="dialog">
                       <br/>TOTAL de Inscritos............: ${inscritos}
                       <br/>TOTAL de Confirmados......: ${confirmados}
-                      <br/>TOTAL de Pagaram Kit.......: ${recebeuKit}
+                      <br/>TOTAL de Desistentes........: ${desistentes}
+                      <br/>
+
+                      <br/>TOTAL de Pagaram Kit(camiseta).......: ${recebeuKit}
+                      <br/>
+                      <br/>
+                      Votação das palestras
+                      <ul>
+                            <g:each var="palestra" in="${palestras}">
+                                 ${palestra.inscricoes.size()} - ${palestra.titulo} - ${palestra.nome}<br/>
+                            </g:each>
+                      </ul>
                   </div>
             </g:form>
         </div>
