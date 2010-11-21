@@ -1,5 +1,6 @@
 package jmeetings
 
+
 class Inscricao {
 
     static belongsTo = [evento:Evento, participante:Participante]
@@ -21,6 +22,7 @@ class Inscricao {
     Boolean confirmado
     String expectativas
     String comoSoube
+    Boolean premiado = false
 
 
     boolean confirmarPresenca(confirma,palestras)
@@ -53,6 +55,33 @@ class Inscricao {
     {
         this.recebeuKit = true
         save()
+    }
+
+    void marcarSorteado(){
+        println 'marcarSorteado'
+        this.sorteado = true
+        save()
+    }
+
+    void marcarPremiado(){
+        println 'marcarPremiado'
+        marcarSorteado()
+        this.premiado = true
+        save()
+    }
+
+    static Inscricao buscarPremiaveis(){
+        def sb =  new StringBuilder()
+        def random = new Random()
+
+        for(i in 1..9){
+            sb.append(random.nextInt(300).toString())
+            sb.append(",");
+        }
+        sb.append(random.nextInt(300).toString())
+        println sb.toString()
+        //TODO buscar apenas inscricoes do evento ativo
+        Inscricao.find("from Inscricao i where i.id in (1,"+ sb.toString() + ") and i.fezCheckin = true and i.sorteado = false and i.premiado = false")
     }
 
     static Inscricao buscarPorEventoECpf(evento, cpf){

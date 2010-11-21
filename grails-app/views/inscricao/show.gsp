@@ -49,6 +49,18 @@
                             <td valign="top" class="value"><g:formatBoolean boolean="${inscricaoInstance?.fezCheckin}" /></td>
                             
                         </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="inscricao.sorteado.label" default="Sorteado" /></td>
+
+                            <td valign="top" class="value"><g:formatBoolean boolean="${inscricaoInstance?.sorteado}" /></td>
+
+                        </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="inscricao.fezCheckin.label" default="Premiado" /></td>
+
+                            <td valign="top" class="value"><g:formatBoolean boolean="${inscricaoInstance?.premiado}" /></td>
+
+                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="inscricao.participante.label" default="Participante" /></td>

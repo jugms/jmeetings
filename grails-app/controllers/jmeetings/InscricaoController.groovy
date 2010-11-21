@@ -16,6 +16,23 @@ class InscricaoController {
         render(view: 'list', model: [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size()])
     }
 
+    def buscarPremiaveis = {
+        def premiaveisList = Inscricao.buscarPremiaveis()
+        render(view: "sorteio", model: [premiaveisList:premiaveisList])
+    }
+
+    def sortear = {
+        if(params.id) {
+            Inscricao.get(params.id).marcarSorteado()
+        }
+        redirect(action:'buscarPremiaveis')
+    }
+
+    def premiar = {
+         def inscricao = Inscricao.get(params.id).marcarPremiado()
+         redirect(action:'buscarPremiaveis')
+    }
+
     def confirmar = {
         if(request.method == 'GET') {
             def modelo = [:]

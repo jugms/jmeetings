@@ -67,6 +67,24 @@
                                 </td>
                             </tr>
 
+                             <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="recebeuKit"><g:message code="inscricao.sorteado.label" default="Sorteado" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: inscricaoInstance, field: 'sorteado', 'errors')}">
+                                    <g:checkBox name="sorteado" value="${inscricaoInstance?.sorteado}" />
+                                </td>
+                            </tr>
+
+                             <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="recebeuKit"><g:message code="inscricao.premiado.label" default="Premiado" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: inscricaoInstance, field: 'premiado', 'errors')}">
+                                    <g:checkBox name="premiado" value="${inscricaoInstance?.premiado}" />
+                                </td>
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                   <label for="participante"><g:message code="inscricao.participante.label" default="Participante" /></label>
