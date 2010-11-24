@@ -2,6 +2,7 @@ package jmeetings
 
 class DashboardController {
 
+	//FIXME refatorar para usar count http://www.grails.org/doc/latest/ref/Domain%20Classes/countBy.html
     def index = {
         def modelo = [:]
         def inscritos = Inscricao.findAll()
