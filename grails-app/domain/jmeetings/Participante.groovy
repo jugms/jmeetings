@@ -29,9 +29,15 @@ class Participante {
 		nome('nome')
 	}
 
+	static constraintGroups = [
+		simple: ["nome", "email"]//,
+		//algumOutroGrupo: ["senha", "cpf"]
+		//grupoProgramatico: {closure} //implementar
+	]
+
     static Participante autenticar(String email, String senha)
     {
-		return new Participante(nome:'admin')
+		//return new Participante(nome:'admin')
         Participante participante = Participante.find("from Participante as p where p.email=:email and p.senha=:senha and p.administrador =:administrador",
             [email:email,senha:senha.encodeAsSHA1(),administrador:true])
         return participante
