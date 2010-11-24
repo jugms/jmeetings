@@ -58,13 +58,11 @@ class Inscricao {
     }
 
     void marcarSorteado(){
-        println 'marcarSorteado'
         this.sorteado = true
         save()
     }
 
     void marcarPremiado(){
-        println 'marcarPremiado'
         marcarSorteado()
         this.premiado = true
         save()
@@ -97,6 +95,7 @@ class Inscricao {
     }
 
     static constraints = {
+		//participante(validator:{it.validate()})
         confirmado(nullable:true)
         comoSoube(nullable:true, maxSize:1000)
         expectativas(nullable:true, maxSize:1000)
