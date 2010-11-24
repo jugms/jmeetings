@@ -1,5 +1,3 @@
-import jmeetings.Participante
-
 class BootStrap {
 
 	def grailsApplication 
