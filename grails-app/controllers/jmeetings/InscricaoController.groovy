@@ -4,17 +4,39 @@ import groovy.text.SimpleTemplateEngine
 
 class InscricaoController {
 
+	//FIXME colocar um postFilter para sempre listar automaticamente depois de cada ação
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def jmeetingsMailService
 
+	def inscricaoSimples = {
+
+		def inscricaoInstance = new Inscricao(params)
+
+		/*if(inscricaoInstance.validate() & inscricaoInstance.participante.validate(['nome', 'email'])){
+			inscricao.save(validate: false)
+		}*/
+		if(inscricaoInstance.inscricaoSimples()){
+			flash.message = "Inscrição/Checkin realizada com sucesso"
+			render(view: "list", model:getModeloList(params, flash))
+		}
+		else{
+			flash.modelo = [inscricaoInstance: inscricaoInstance]
+			render(view: "list", model:getModeloList(params, flash))
+		}
+	}
+
     def buscar = {
-        params.max = Math.min(params.max ? params.int('max') : 25, 100)
+        render(view: 'list', model: getFiltroList(params))
+    }
+
+	def getFiltroList(params){
+		params.max = Math.min(params.max ? params.int('max') : 25, 100)
         params.sort = 'fezCheckin'
         params.order = 'desc'
         def lista = params.filtro ? Inscricao.buscarPorNomeOuEmail(params.filtro) : Inscricao.list(params)
-        render(view: 'list', model: [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size()])
-    }
+        [inscricaoInstanceList:lista, inscricaoInstanceTotal:lista.size(), filtro:params.filtro]
+	}
 
     def buscarPremiaveis = {
         def premiaveisList = Inscricao.buscarPremiaveis()
@@ -63,37 +85,53 @@ class InscricaoController {
 
     def checkin = {
         Inscricao.get(params.id).checkin()
-        redirect(action:'list')
+        render(view: "list", model:getModeloList(params, flash))
     }
 
     def receberKit = {
         Inscricao.get(params.id).receberKit()
-        redirect(action:'list')
+        render(view: "list", model:getModeloList(params, flash))
     }
 
     def index = {
         redirect(action: "list", params: params)
     }
 
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 25, 100)
-        if (!params.offset) params.offset = 0
-        if (!params.sort) params.sort = "id"
-        if (!params.order) params.order = "asc"
+	def getModeloList(params, flash){
 
-        def inscricoes = Inscricao.withCriteria {
-            maxResults(params.max?.toInteger())
-            firstResult(params.offset?.toInteger())
-            if (params.sort.startsWith('participante.')) {
-                def atributo = params.sort.replaceAll('participante.','')
-                participante {
-                    order(atributo, params.order)
-                }
-            } else {
-                order(params.sort, params.order)
-            }
-        }
-        [inscricaoInstanceList:inscricoes, inscricaoInstanceTotal:Inscricao.count()]
+		def modelo = flash.modelo ?: [:]
+		if(params.filtro){
+			modelo += getFiltroList(params)
+		}
+		else{
+			params.max = Math.min(params.max ? params.int('max') : 25, 100)
+			if (!params.offset) params.offset = 0
+			if (!params.sort) params.sort = "id"
+			if (!params.order) params.order = "asc"
+
+			def inscricoes = Inscricao.withCriteria {
+				maxResults(params.max?.toInteger())
+				firstResult(params.offset?.toInteger())
+				if (params.sort.startsWith('participante.')) {
+					def atributo = params.sort.replaceAll('participante.','')
+					participante {
+						order(atributo, params.order)
+					}
+				} else {
+					order(params.sort, params.order)
+				}
+			}
+			
+			modelo.inscricaoInstanceList = inscricoes
+			modelo.inscricaoInstanceTotal = Inscricao.count()
+		}
+
+        modelo
+		
+	}
+
+    def list = {
+		getModeloList(params, flash)
     }
 
     def create = {

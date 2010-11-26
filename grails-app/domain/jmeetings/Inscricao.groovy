@@ -24,6 +24,14 @@ class Inscricao {
     String comoSoube
     Boolean premiado = false
 
+	boolean inscricaoSimples(){
+		//xucro! FIXME buscar o evento pela sessao ou combobox
+		evento = Evento.get(1)
+		fezCheckin = true
+		if(this.participante.validate(['nome', 'email'])){
+			save(validate: false)
+		}
+	}
 
     boolean confirmarPresenca(confirma,palestras)
     {

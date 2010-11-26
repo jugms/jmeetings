@@ -19,6 +19,42 @@
 			<div class="message">${flash.message}</div>
 		</g:if>
 	</div>
+	<g:hasErrors bean="${inscricaoInstance?.participante}">
+      <div class="errors">
+        <g:renderErrors bean="${inscricaoInstance?.participante}" as="list" />
+      </div>
+    </g:hasErrors>
+	<g:form action="inscricaoSimples" >
+		<div class="dialog">
+			<table>
+				<tbody>
+					<tr class="prop">
+						<td valign="top" class="name">
+							<label for="filtro">Nome</label>
+						</td>
+						<td valign="top" class="value nome">
+							<g:textField name="participante.nome" value="${inscricaoInstance?.participante?.nome}"/>
+						</td>
+					</tr>
+					<tr class="prop">
+						<td valign="top" class="name">
+							<label for="filtro">Email</label>
+						</td>
+						<td valign="top" class="value email">
+							<g:textField name="participante.email" value="${inscricaoInstance?.participante?.email}"/>
+						</td>
+					</tr>
+					<tr class="prop">
+						<td valign="top" class="name">
+							<g:submitButton name="inscricao" value="Inscrição"/>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</g:form>
+	<hr/>
 	<g:form action="buscar" >
 		<div class="dialog">
 			<table>
@@ -28,7 +64,7 @@
 							<label for="filtro">Nome ou e-mail</label>
 						</td>
 						<td valign="top" class="value filtro">
-							<g:textField name="filtro"/> &nbsp;&nbsp;<g:submitButton name="buscar" value="Buscar" />
+							<g:textField name="filtro" value="${filtro}"/> &nbsp;&nbsp;<g:submitButton name="buscar" value="Buscar" />
 						</td>
 					</tr>
 				</tbody>
@@ -74,11 +110,11 @@
 
           <td> 	
 						<g:if test="${inscricaoInstance.fezCheckin}">Sim</g:if>
-						<g:else><g:link action="checkin" id="${inscricaoInstance.id}">Checkin</g:link></g:else>
+						<g:else><g:link action="checkin" id="${inscricaoInstance.id}" params="[filtro:filtro]">Checkin</g:link></g:else>
 				  </td>
 				<td> 	
 					<g:if test="${inscricaoInstance.recebeuKit}">Sim</g:if>
-					<g:else><g:link action="receberKit" id="${inscricaoInstance.id}">Receber kit</g:link></g:else>
+					<g:else><g:link action="receberKit" id="${inscricaoInstance.id}" params="[filtro:filtro]">Receber kit</g:link></g:else>
 				  </td>
                                  <td>
 					<g:if test="${inscricaoInstance.confirmado}">Sim</g:if>
@@ -94,6 +130,9 @@
     <div class="paginateButtons">
       <g:paginate total="${inscricaoInstanceTotal}" />
     </div>
+
+	Total de inscritos: ${Inscricao.count()}<br/>
+	Total de checkins:  ${Inscricao.countByFezCheckin(true)}
   </div>
 </body>
 </html>
