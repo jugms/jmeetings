@@ -10,47 +10,95 @@ class PalestraController {
         redirect(action: "list", params: params)
     }
 
+	def avaliar = {
+		if(request.method == 'GET') {
+			def inscricao = Inscricao.buscarPorEventoECpf(params.evento, params.cpf)
+
+			if(!inscricao){
+				flash.errors = "Inscrição não encontrada!"
+				render(view:'avaliacao')
+			}
+			else
+			{
+				def palestras = Palestra.buscarAprovadas() - inscricao.avaliacoes.collect{it.palestra}
+				def avaliacoes = []
+				palestras.each{
+					avaliacoes += new Avaliacao(inscricao: inscricao, palestra: it)
+				}
+
+				render(view:'avaliacao', model: [inscricao: inscricao, avaliacoes: avaliacoes, total: avaliacoes.size()])
+			}
+
+			
+		}
+		else if(request.method == 'POST') {
+
+
+			def inscricao = Inscricao.get(params.id)
+
+			for(i in 0..(params.total.toInteger() -1)){
+				//o problema é que aqui a inscricao inserida é nova, e nao gerenciado. aí na hora de salvar dá pau
+				def avaliacao = new Avaliacao(params."avaliacoes[${i}]")
+				if(avaliacao.nota || avaliacao.comentario?.trim()){
+					inscricao.avaliacoes += avaliacao
+				}
+			}
+			
+			if(inscricao.save()){
+				flash.message = "Avaliação realizada com sucesso!"
+				render(view:'avaliacaoSucesso', model: [inscricao: inscricao])
+			}
+			else{
+				
+				render(view: 'avaliacao', model: [inscricao: inscricao, avaliacoes: (inscricao.avaliacoes as List), total: inscricao.avaliacoes.size()])
+			}
+
+		}
+
+
+
+	}
 
     def notificarAprovados = {
 
-	def palestrasAprovadas = Palestra.findAllByAprovada(true)
+		def palestrasAprovadas = Palestra.findAllByAprovada(true)
 
-	def text = '''Boa tarde ${p.nome},
-em nome do JUGMS venho comunicar que sua palestra '${p.titulo}' foi aprovada.
-Em breve estarei enviando o layout dos slides que será usado por todos os palestrantes. O intuito é além de proporcionar uma identidade visual para as palestras do evento, divulgar nossos apoiadores e patrocinadores, pois sem eles o evento não seria possível.
-Solicito ainda que assim que tiver algum material pronto me envie para que a coordenação possa analisar e assim podermos ajudar em alguma coisa.
-Essa semana a grade preliminar do evento já estará disponível no site www.javaneiros.com.br >> Palestras.
-Obrigado e bom trabalho na preparação da palestra. Estou à disposição para responder quaisquer dúvidas.'''
-
-
-	def template = new SimpleTemplateEngine().createTemplate(text)
+		def text = '''Boa tarde ${p.nome},
+			em nome do JUGMS venho comunicar que sua palestra '${p.titulo}' foi aprovada.
+			Em breve estarei enviando o layout dos slides que será usado por todos os palestrantes. O intuito é além de proporcionar uma identidade visual para as palestras do evento, divulgar nossos apoiadores e patrocinadores, pois sem eles o evento não seria possível.
+			Solicito ainda que assim que tiver algum material pronto me envie para que a coordenação possa analisar e assim podermos ajudar em alguma coisa.
+			Essa semana a grade preliminar do evento já estará disponível no site www.javaneiros.com.br >> Palestras.
+			Obrigado e bom trabalho na preparação da palestra. Estou à disposição para responder quaisquer dúvidas.'''
 
 
-	palestrasAprovadas.each{
+		def template = new SimpleTemplateEngine().createTemplate(text)
 
-	    def corpoEmail =  template.make(['p':it])
-	    def destinatario = it.email
 
-	    println "========================================="
-	    println "TO: " + destinatario
-	    println corpoEmail
+		palestrasAprovadas.each{
 
-	    println "========================================="
+			def corpoEmail =  template.make(['p':it])
+			def destinatario = it.email
 
-	    
+			println "========================================="
+			println "TO: " + destinatario
+			println corpoEmail
 
-	    sendMail{
-	      from 	"gscordeiro@gmail.com"
-	      to 	"dantiele@gmail.com"
-	      bcc	"gscordeiro@gmail.com"
-	      subject 	"Sua palestra para o Javaneiros2010 foi aprovada!"
-	      body 	corpoEmail
-	    }
+			println "========================================="
 
-	    
-	}
 
-	render "${palestrasAprovadas.size} notificações enviadas"
+
+			sendMail{
+			from 	"gscordeiro@gmail.com"
+			to 	"dantiele@gmail.com"
+			bcc	"gscordeiro@gmail.com"
+			subject 	"Sua palestra para o Javaneiros2010 foi aprovada!"
+			body 	corpoEmail
+			}
+
+
+		}
+
+		render "${palestrasAprovadas.size} notificações enviadas"
 
     }
 

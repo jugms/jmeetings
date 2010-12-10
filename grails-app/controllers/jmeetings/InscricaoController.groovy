@@ -68,7 +68,7 @@ class InscricaoController {
             }
             render(view:'selecaoPalestras', model: modelo)
         }
-        else{
+        else if(request.method == 'POST') {
             def inscricao = Inscricao.get(params.id)
             try{
                 inscricao.confirmarPresenca(params.confirma=="true",params.palestras)

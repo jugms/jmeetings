@@ -2,7 +2,7 @@ package jmeetings
 
 class Palestra {
 
-	static hasMany = [inscricoes:Inscricao]
+	static hasMany = [inscricoes:Inscricao, avaliacoes:Avaliacao]
 	static belongsTo = Inscricao
 	
     String dataSubmissao
@@ -22,6 +22,10 @@ class Palestra {
 
     static constraints = {
     }
+
+	String toString(){
+		"${titulo}"
+	}
 
     static List buscarAprovadas(){
         Palestra.findAll("from Palestra p where p.aprovada = :aprovada", ["aprovada":true])

@@ -4,9 +4,10 @@ package jmeetings
 class Inscricao {
 
     static belongsTo = [evento:Evento, participante:Participante]
-    static hasMany = [palestras:Palestra]
+    static hasMany = [palestras:Palestra, avaliacoes:Avaliacao]
     static mapping = {
         participante cascade:"save-update"
+		avaliacoes cascade:"save-update"
         expectativas type:"text"
         comoSoube type:"text"
     }
@@ -104,6 +105,23 @@ class Inscricao {
 
     static constraints = {
 		//participante(validator:{it.validate()})
+		avaliacoes(validator: {val, obj, errors ->
+            def errorFound = false;
+            val.each{   src->
+               if(!src.validate()){
+                  errorFound = true;
+                  src.errors.allErrors.each{error->
+                      obj.errors.rejectValue('avaliacoes',
+                      "inscricao.avaliacao.invalid",
+                       [src,error.getField(),error.getRejectedValue()] as Object[],
+                       "Avaliação [${error.getField()}] com valor [${error.getRejectedValue()}] é invalido.")
+                    }
+               }
+            }
+
+            if(errorFound) return false;
+        })
+		
         confirmado(nullable:true)
         comoSoube(nullable:true, maxSize:1000)
         expectativas(nullable:true, maxSize:1000)
