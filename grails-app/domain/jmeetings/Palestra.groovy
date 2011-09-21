@@ -5,7 +5,7 @@ class Palestra {
 	static hasMany = [inscricoes:Inscricao, avaliacoes:Avaliacao]
 	static belongsTo = Inscricao
 	
-    String dataSubmissao
+    Date dataSubmissao = new Date()
     //dados do palestrante
     String nome
     String email
@@ -18,7 +18,7 @@ class Palestra {
     String nivel
     String recursos
 
-    Boolean aprovada = true
+    Boolean aprovada
 
     static constraints = {
     }

@@ -31,3 +31,8 @@ grails.project.dependency.resolution = {
 
     }
 }
+/*
+plugins {
+    compile ':stella:1.4.1'
+}
+*/
