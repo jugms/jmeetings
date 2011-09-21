@@ -28,94 +28,107 @@
                     <table>
                         <tbody>
                         
+			    <fieldset>
+				<legend>Seus dados</legend>
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="dataSubmissao"><g:message code="palestra.dataSubmissao.label" default="Data Submissao" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'dataSubmissao', 'errors')}">
-                                    <g:textField name="dataSubmissao" value="${palestraInstance?.dataSubmissao}" />
-                                </td>
-                            </tr>
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="dataSubmissao"><g:message code="palestra.dataSubmissao.label" default="Data Submissao" /></label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'dataSubmissao', 'errors')}">
+					<g:formatDate format="dd/MM/yyyy hh:mm:ss" date="${palestraInstance?.dataSubmissao}"/>
+					
+				    </td>
+				</tr>
 
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="nome"><g:message code="palestra.nome.label" default="Nome" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'nome', 'errors')}">
-                                    <g:textField name="nome" value="${palestraInstance?.nome}" />
-                                </td>
-                            </tr>
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="nome">Nome:</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'nome', 'errors')}">
+					<g:textField name="nome" value="${palestraInstance?.nome}" />
+				    </td>
+				</tr>
+			    
+			  
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="email">e-mail</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'email', 'errors')}">
+					<g:textField name="email" value="${palestraInstance?.email}" />
+				    </td>
+				</tr>
+
+
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="celular">Celular (caso precisemos entrar em contato)</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'celular', 'errors')}">
+					<g:textField name="celular" value="${palestraInstance?.celular}" />
+				    </td>
+				</tr>
+			    
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="curriculo">Curriculo resumido</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'curriculo', 'errors')}">
+					<g:textArea name="curriculo" value="${palestraInstance?.curriculo}" />
+				    </td>
+				</tr>
                         
-                       
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="email"><g:message code="palestra.email.label" default="Email" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'email', 'errors')}">
-                                    <g:textField name="email" value="${palestraInstance?.email}" />
-                                </td>
-                            </tr>
+                        
+			    </fieldset>
+			    <fieldset>
+				<legend>Dados da sua palestra</legend>
+
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="titulo">Título</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'titulo', 'errors')}">
+					<g:textField name="titulo" value="${palestraInstance?.titulo}" />
+				    </td>
+				</tr>
+
+			    
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="topicos">Topicos, descrição</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'topicos', 'errors')}">
+					<g:textArea name="topicos" value="${palestraInstance?.topicos}" />
+				    </td>
+				</tr>
 
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="celular"><g:message code="palestra.celular.label" default="Celular" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'celular', 'errors')}">
-                                    <g:textField name="celular" value="${palestraInstance?.celular}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="curriculo"><g:message code="palestra.curriculo.label" default="Curriculo" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'curriculo', 'errors')}">
-                                    <g:textField name="curriculo" value="${palestraInstance?.curriculo}" />
-                                </td>
-                            </tr>
-                        
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="titulo"><g:message code="palestra.titulo.label" default="Titulo" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'titulo', 'errors')}">
-                                    <g:textField name="titulo" value="${palestraInstance?.titulo}" />
-                                </td>
-                            </tr>
-
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="topicos"><g:message code="palestra.topicos.label" default="Topicos" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'topicos', 'errors')}">
-                                    <g:textField name="topicos" value="${palestraInstance?.topicos}" />
-                                </td>
-                            </tr>
+			    
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="nivel">Nivel</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'nivel', 'errors')}">
+					<g:radioGroup name="nivel" labels="['Iniciante', 'Intermediário', 'Avançado']" values="['iniciante', 'intermediario', 'avancado']" value="${palestraInstance?.nivel}" >
+					    <p>${it.radio} ${it.label} </p>
+					</g:radioGroup>
+					
+				    </td>
+				</tr>
+			    
+				<tr class="prop">
+				    <td valign="top" class="name">
+					<label for="recursos">Do que vai prescisar?</label>
+				    </td>
+				    <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'recursos', 'errors')}">
+					<g:textArea name="recursos" value="${palestraInstance?.recursos}" />
+				    </td>
+				</tr>
 
 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="nivel"><g:message code="palestra.nivel.label" default="Nivel" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'nivel', 'errors')}">
-                                    <g:textField name="nivel" value="${palestraInstance?.nivel}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="recursos"><g:message code="palestra.recursos.label" default="Recursos" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'recursos', 'errors')}">
-                                    <g:textField name="recursos" value="${palestraInstance?.recursos}" />
-                                </td>
-                            </tr>
+			  </fieldset>
                         
                         </tbody>
                     </table>

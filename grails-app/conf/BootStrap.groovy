@@ -1,9 +1,27 @@
+import jmeetings.*
+
 class BootStrap {
 
-	def grailsApplication 
+    def grailsApplication 
 	
     def init = { servletContext ->
 		configurarSaveComGruposDeValidacao()
+
+		/*criando usuario admin
+		environments {
+		    development {
+			new Participante(email: 'admin@jmeetings.com.br', 
+					 senha: "admin".encodeAsSHA1(), 
+					 administrador: true,
+					 cidade: 'Campo Grande',
+					 nome: 'Administrador',
+					 cpf: '266.862.435-58', //gerado
+					 dataNascimento: new Date(),
+					 instituicao: 'ADM'
+					 ).save(validate: false)
+		    }
+		}*/
+
     }
     def destroy = {
     }
