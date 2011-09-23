@@ -1,129 +1,120 @@
 
-
 <%@ page import="jmeetings.Palestra" %>
+<!doctype html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'palestra.label', default: 'Palestra')}" />
-        <title><g:message code="default.create.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${palestraInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${palestraInstance}" as="list" />
-            </div>
-            </g:hasErrors>
-            <g:form action="save" >
-                <div class="dialog">
-                    <table>
-                        <tbody>
+	<head>
+		<meta name="layout" content="main2">
+		<g:set var="entityName" value="${message(code: 'pessoa.label', default: 'Palestra')}" />
+		<title>Submeter Palestra</title>
+	</head>
+	<body>
+		<a href="#create-pessoa" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<div class="nav" role="navigation">
+			<ul>
+				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+			</ul>
+		</div>
+		<div id="create-palestra" class="content scaffold-create" role="main">
+			<h1>Submeter Palestra</h1>
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			<g:hasErrors bean="${pessoaInstance}">
+			<ul class="errors" role="alert">
+				<g:eachError bean="${pessoaInstance}" var="error">
+				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+				</g:eachError>
+			</ul>
+			</g:hasErrors>
+			<g:form action="save" >
+				<%-- <fieldset class="form"> --%>
                         
+				      <fieldset>
+					  <legend>Seus dados</legend>
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="dataSubmissao"><g:message code="palestra.dataSubmissao.label" default="Data Submissao" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'dataSubmissao', 'errors')}">
-                                    <g:textField name="dataSubmissao" value="${palestraInstance?.dataSubmissao}" />
-                                </td>
-                            </tr>
-
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="nome"><g:message code="palestra.nome.label" default="Nome" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'nome', 'errors')}">
-                                    <g:textField name="nome" value="${palestraInstance?.nome}" />
-                                </td>
-                            </tr>
-                        
-                       
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="email"><g:message code="palestra.email.label" default="Email" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'email', 'errors')}">
-                                    <g:textField name="email" value="${palestraInstance?.email}" />
-                                </td>
-                            </tr>
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'dataSubmissao', 'error')} required">
+						  <label for="dataSubmissao">
+							  Data
+						  </label>
+						  <g:formatDate format="dd/MM/yyyy hh:mm:ss" date="${palestraInstance?.dataSubmissao}"/>
+					  </div>
 
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="celular"><g:message code="palestra.celular.label" default="Celular" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'celular', 'errors')}">
-                                    <g:textField name="celular" value="${palestraInstance?.celular}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="curriculo"><g:message code="palestra.curriculo.label" default="Curriculo" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'curriculo', 'errors')}">
-                                    <g:textField name="curriculo" value="${palestraInstance?.curriculo}" />
-                                </td>
-                            </tr>
-                        
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="titulo"><g:message code="palestra.titulo.label" default="Titulo" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'titulo', 'errors')}">
-                                    <g:textField name="titulo" value="${palestraInstance?.titulo}" />
-                                </td>
-                            </tr>
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'nome', 'error')} required">
+						  <label for="nome">
+							  Nome<span class="required-indicator">*</span>
+						  </label>
+						  <g:textField name="nome" value="${palestraInstance?.nome}" />
+					  </div>
 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="topicos"><g:message code="palestra.topicos.label" default="Topicos" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'topicos', 'errors')}">
-                                    <g:textField name="topicos" value="${palestraInstance?.topicos}" />
-                                </td>
-                            </tr>
+				    
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'email', 'error')} required">
+						  <label for="email">
+							  E-mail<span class="required-indicator">*</span>
+						  </label>
+						  <g:textField name="email" value="${palestraInstance?.email}" />
+					  </div>
+
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'celular', 'error')} required">
+						  <label for="celular">
+							  Celular (caso precisemos entrar em contato)<span class="required-indicator">*</span>
+						  </label>
+						  <g:textField name="calular" value="${palestraInstance?.celular}" />
+					  </div>
+
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'curriculo', 'error')} required">
+						  <label for="curriculo">
+							  Curriculo resumido<span class="required-indicator">*</span>
+						  </label>
+						  <g:textArea name="curriculo" value="${palestraInstance?.curriculo}" />
+					  </div>
+	
+				  
+				  
+				      </fieldset>
+				      <fieldset>
+					  <legend>Dados da sua palestra</legend>
 
 
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'titulo', 'error')} required">
+						  <label for="titulo">
+							  Título<span class="required-indicator">*</span>
+						  </label>
+						  <g:textField name="titulo" value="${palestraInstance?.titulo}" />
+					  </div>
+
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'topicos', 'error')} required">
+						  <label for="topicos">
+							  Topicos, descrição<span class="required-indicator">*</span>
+						  </label>
+						  <g:textArea name="topicos" value="${palestraInstance?.topicos}" />
+					  </div>
+
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'nivel', 'error')} required">
+						  <label for="nivel">
+							  Nível<span class="required-indicator">*</span>
+						  </label>
+						  <g:radioGroup name="nivel" labels="['Iniciante', 'Intermediário', 'Avançado']" values="['iniciante', 'intermediario', 'avancado']" value="${palestraInstance?.nivel}" >
+						      ${it.radio} ${it.label}
+						  </g:radioGroup>
+					  </div>
+				      
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'recursos', 'error')} required">
+						  <label for="recursos">
+							  Do que vai prescisar?<span class="required-indicator">*</span>
+						  </label>
+						  <g:textArea name="recursos" value="${palestraInstance?.recursos}" />
+					  </div>
+				      
+
+				    </fieldset>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="nivel"><g:message code="palestra.nivel.label" default="Nivel" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'nivel', 'errors')}">
-                                    <g:textField name="nivel" value="${palestraInstance?.nivel}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="recursos"><g:message code="palestra.recursos.label" default="Recursos" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: palestraInstance, field: 'recursos', 'errors')}">
-                                    <g:textField name="recursos" value="${palestraInstance?.recursos}" />
-                                </td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
-                </div>
-            </g:form>
-        </div>
-    </body>
+			     <%-- </fieldset> --%>
+			      <fieldset class="buttons">
+				      <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+			      </fieldset>
+			</g:form>
+		</div>
+	</body>
 </html>

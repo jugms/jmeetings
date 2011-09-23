@@ -1,5 +1,5 @@
 dataSource {
-	driverClassName = "org.hsqldb.jdbcDriver"
+	driverClassName = "org.h2.Driver"
 	username = "sa"
 	password = ""
     pooled = true
@@ -14,13 +14,13 @@ environments {
     development {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:hsqldb:file:jmeeting_db_dev/database;shutdown=true"
+            url = "jdbc:h2:jmeeting_db_dev/database"
         }
     }
     test {
         dataSource {
             dbCreate = "create-drop"
-            url = "jdbc:hsqldb:file:jmeeting_db_test/database;shutdown=true"
+            url = "jdbc:h2:jmeeting_db_test/database"
         }
     }
     production {
