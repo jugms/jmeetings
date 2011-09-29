@@ -15,7 +15,7 @@ class PalestraController {
 			def inscricao = Inscricao.buscarPorEventoECpf(params.evento, params.cpf)
 
 			if(!inscricao){
-				flash.errors = "Inscrição não encontrada!"
+				flash.errors = "Inscri√ß√£o n√£o encontrada!"
 				render(view:'avaliacao')
 			}
 			else
@@ -37,7 +37,7 @@ class PalestraController {
 			def inscricao = Inscricao.get(params.id)
 
 			for(i in 0..(params.total.toInteger() -1)){
-				//o problema é que aqui a inscricao inserida é nova, e nao gerenciado. aí na hora de salvar dá pau
+				//o problema √© que aqui a inscricao inserida √© nova, e nao gerenciado. a√≠ na hora de salvar d√° pau
 				def avaliacao = new Avaliacao(params."avaliacoes[${i}]")
 				if(avaliacao.nota || avaliacao.comentario?.trim()){
 					inscricao.avaliacoes += avaliacao
@@ -45,7 +45,7 @@ class PalestraController {
 			}
 			
 			if(inscricao.save()){
-				flash.message = "Avaliação realizada com sucesso!"
+				flash.message = "Avalia√ß√£o realizada com sucesso!"
 				render(view:'avaliacaoSucesso', model: [inscricao: inscricao])
 			}
 			else{
@@ -65,10 +65,10 @@ class PalestraController {
 
 		def text = '''Boa tarde ${p.nome},
 			em nome do JUGMS venho comunicar que sua palestra '${p.titulo}' foi aprovada.
-			Em breve estarei enviando o layout dos slides que será usado por todos os palestrantes. O intuito é além de proporcionar uma identidade visual para as palestras do evento, divulgar nossos apoiadores e patrocinadores, pois sem eles o evento não seria possível.
-			Solicito ainda que assim que tiver algum material pronto me envie para que a coordenação possa analisar e assim podermos ajudar em alguma coisa.
-			Essa semana a grade preliminar do evento já estará disponível no site www.javaneiros.com.br >> Palestras.
-			Obrigado e bom trabalho na preparação da palestra. Estou à disposição para responder quaisquer dúvidas.'''
+			Em breve estarei enviando o layout dos slides que ser√° usado por todos os palestrantes. O intuito √© al√©m de proporcionar uma identidade visual para as palestras do evento, divulgar nossos apoiadores e patrocinadores, pois sem eles o evento n√£o seria poss√≠vel.
+			Solicito ainda que assim que tiver algum material pronto me envie para que a coordena√ß√£o possa analisar e assim podermos ajudar em alguma coisa.
+			Essa semana a grade preliminar do evento j√° estar√° dispon√≠vel no site www.javaneiros.com.br >> Palestras.
+			Obrigado e bom trabalho na prepara√ß√£o da palestra. Estou √† disposi√ß√£o para responder quaisquer d√∫vidas.'''
 
 
 		def template = new SimpleTemplateEngine().createTemplate(text)
@@ -98,7 +98,7 @@ class PalestraController {
 
 		}
 
-		render "${palestrasAprovadas.size} notificações enviadas"
+		render "${palestrasAprovadas.size} notifica√ß√µes enviadas"
 
     }
 
@@ -111,8 +111,10 @@ class PalestraController {
     }
 
     def create = {
-        def palestraInstance = new Palestra()
-        palestraInstance.properties = params
+        def palestraInstance = new Palestra(params)
+        if(params.nomeEvento){ //veio pelo link de submissão de palestra
+        	palestraInstance.evento = Evento.findByNomeIlike(params.nomeEvento)
+        }
         return [palestraInstance: palestraInstance]
     }
 
