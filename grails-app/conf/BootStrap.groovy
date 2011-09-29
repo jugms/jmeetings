@@ -27,8 +27,15 @@ class BootStrap {
 						).save()
 
 			}
+			
+			if(Evento.count() == 0){
+				new Evento(nome: "Javaneiros2011", email: "coordenacao@jugms.com.br").save()
+			}
 
 		    }
+		    
+		    
+		    
 		}
 
     }

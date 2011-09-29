@@ -10,7 +10,7 @@ class SecurityFilters {
 						((controllerName == 'inscricao' &&
 							(actionName == 'create' || actionName == 'save' || actionName == 'confirmar'))
 						||(controllerName == 'palestra' &&
-							(actionName == 'avaliar')
+							(actionName == 'avaliar' || actionName == 'create')
 						))
 					&& !session.user)
                     && controllerName != 'login'
