@@ -1,5 +1,5 @@
 
-<%@ page import="jmeetings.Palestra" %>
+<%@ page import="jmeetings.*" %>
 <!doctype html>
 <html>
 	<head>
@@ -76,6 +76,13 @@
 				      <fieldset>
 					  <legend>Dados da sua palestra</legend>
 
+					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'evento', 'error')} required">
+						  <label for="evento">
+							  Evento<span class="required-indicator">*</span>
+						  </label>
+						  <g:select name="evento.id" from="${Evento.list()}" noSelection="['':'-- Selecione --']" optionKey="id" optionValue="nome" value="${palestraInstance?.evento?.id}" />
+					  </div>
+					  
 
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'titulo', 'error')} required">
 						  <label for="titulo">

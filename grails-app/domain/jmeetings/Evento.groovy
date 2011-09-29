@@ -2,7 +2,8 @@ package jmeetings
 
 class Evento {
 
-    static hasMany = [inscricoes:Inscricao]
+    static hasMany = [inscricoes:Inscricao, palestras:Palestra]
+    static mappedBy = [palestras: 'evento']
 
     String nome
     Date data = new Date()
