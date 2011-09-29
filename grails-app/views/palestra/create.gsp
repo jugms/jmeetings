@@ -20,9 +20,9 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:hasErrors bean="${pessoaInstance}">
+			<g:hasErrors bean="${palestraInstance}">
 			<ul class="errors" role="alert">
-				<g:eachError bean="${pessoaInstance}" var="error">
+				<g:eachError bean="${palestraInstance}" var="error">
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 				</g:eachError>
 			</ul>
@@ -60,7 +60,7 @@
 						  <label for="celular">
 							  Celular (caso precisemos entrar em contato)<span class="required-indicator">*</span>
 						  </label>
-						  <g:textField name="calular" value="${palestraInstance?.celular}" />
+						  <g:textField name="celular" value="${palestraInstance?.celular}" />
 					  </div>
 
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'curriculo', 'error')} required">
