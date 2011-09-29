@@ -12,6 +12,8 @@ class UrlMappings {
 				// apply constraints here
 			}
 		}
+		
+		"/submeter-palestra/$nomeEvento"(controller: "palestra", action: "create")
 
 		"/"(view:"/index")
 		"500"(view:'/error')
