@@ -9,12 +9,12 @@
 	</head>
 	<body>
 		<a href="#create-pessoa" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
+		<%-- <div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
-		</div>
+		</div>--%>
 		<div id="create-palestra" class="content scaffold-create" role="main">
 			<h1>Submeter Palestra</h1>
 			<g:if test="${flash.message}">
@@ -45,7 +45,7 @@
 						  <label for="nome">
 							  Nome<span class="required-indicator">*</span>
 						  </label>
-						  <g:textField name="nome" value="${palestraInstance?.nome}" />
+						  <g:textField name="nome" value="${palestraInstance?.nome}" size="50"/>
 					  </div>
 
 				    
@@ -53,21 +53,21 @@
 						  <label for="email">
 							  E-mail<span class="required-indicator">*</span>
 						  </label>
-						  <g:textField name="email" value="${palestraInstance?.email}" />
+						  <g:textField name="email" value="${palestraInstance?.email}" size="50"/>
 					  </div>
 
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'celular', 'error')} required">
 						  <label for="celular">
-							  Celular (caso precisemos entrar em contato)<span class="required-indicator">*</span>
+							  Celular<span class="required-indicator">*</span>
 						  </label>
-						  <g:textField name="celular" value="${palestraInstance?.celular}" />
+						  <g:textField name="celular" value="${palestraInstance?.celular}" size="50"/>
 					  </div>
 
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'curriculo', 'error')} required">
 						  <label for="curriculo">
-							  Curriculo resumido<span class="required-indicator">*</span>
+							  Currículo resumido<span class="required-indicator">*</span>
 						  </label>
-						  <g:textArea name="curriculo" value="${palestraInstance?.curriculo}" />
+						  <g:textArea name="curriculo" value="${palestraInstance?.curriculo}" style="width: 390px;"/>
 					  </div>
 	
 				  
@@ -88,14 +88,14 @@
 						  <label for="titulo">
 							  Título<span class="required-indicator">*</span>
 						  </label>
-						  <g:textField name="titulo" value="${palestraInstance?.titulo}" />
+						  <g:textField name="titulo" value="${palestraInstance?.titulo}" size="50" />
 					  </div>
 
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'topicos', 'error')} required">
 						  <label for="topicos">
-							  Topicos, descrição<span class="required-indicator">*</span>
+							  Descrição<span class="required-indicator">*</span>
 						  </label>
-						  <g:textArea name="topicos" value="${palestraInstance?.topicos}" />
+						  <g:textArea name="topicos" value="${palestraInstance?.topicos}" style="width: 390px;" />
 					  </div>
 
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'nivel', 'error')} required">
@@ -109,9 +109,9 @@
 				      
 					  <div class="fieldcontain ${hasErrors(bean: palestraInstance, field: 'recursos', 'error')} required">
 						  <label for="recursos">
-							  Do que vai prescisar?<span class="required-indicator">*</span>
+							  Do que vai precisar?<span class="required-indicator">*</span>
 						  </label>
-						  <g:textArea name="recursos" value="${palestraInstance?.recursos}" />
+						  <g:textArea name="recursos" value="${palestraInstance?.recursos}" style="width: 390px;"/>
 					  </div>
 				      
 
